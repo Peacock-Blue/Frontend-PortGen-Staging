@@ -4,7 +4,8 @@
   width: 100% !important;
   height: 100% !important;
   position: fixed;
-  overflow: scroll;
+  overflow: scroll !important;
+  scrollbar-width: none;
 }
 .more
 {
@@ -18,4 +19,26 @@
 {
   margin-top: 100px !important;
   margin-bottom: 13vh !important;
+}
+.header
+{
+  color: #B8860B !important;
+  font-size: 40px !important;
+}
+.container
+{
+  color: #ADFF2F !important;
+  font-size: 20px !important;
+}
+.show
+{
+  color: #90EE90 !important;
+}
+.icon:hover
+{
+  cursor: pointer !important;
+}
+.d
+{
+  margin-right: 0px !important;
 }
