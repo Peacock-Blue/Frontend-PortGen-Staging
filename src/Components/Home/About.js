@@ -6,13 +6,15 @@ import styles from './About.module.css';
 
 export const About = () => {
   return (
-    <div class={styles.body}>
+    <div className={styles.body}>
       <Navbar tab='About'/>
-      <div class={styles.Body}>
-        <Header size='huge' textAlign='center' content='Portfolio'/>
+      <div className={styles.Body}>
+        <Header size='huge' textAlign='center' className={styles.header}>
+          APS<Icon name='chevron circle right' size='massive' className={styles.d}/>ev
+        </Header>
         <Divider/>
         <Container>
-          <Header size='large' content='Developers'/>
+          <Header size='large' content='Developers' className={styles.developer}/>
           <Divider/>
           <Card.Group itemsPerRow={3} className={styles.group} centered>
             <Card className={styles.card} centered>

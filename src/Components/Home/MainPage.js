@@ -7,36 +7,28 @@ import styles from './MainPage.module.css';
 export const MainPage = () => {
   const [active, setActive] = useState('false');
   return (
-    <div class={styles.body}>
+    <div className={styles.body}>
       <Navbar tab='Home'/>
-      <div class={styles.Body}>
-        <Header size='huge' textAlign='center' content='Portfolio'/>
+      <div className={styles.Body}>
+        <Header size='huge' textAlign='center' className={styles.header}>
+          APS<Icon name='chevron circle right' size='massive' className={styles.d}/>ev
+        </Header>
         <Divider/>
-        <Container>
-          Cillum in singulis. Quem deserunt ubi appellat. Commodo veniam te admodum
-          praesentibus, deserunt ita magna, se nescius comprehenderit de id fore
-          adipisicing.Iis ullamco concursionibus. Fabulas in singulis do ut amet doctrina
-          sempiternum, quid despicationes laboris legam offendit, te esse quae ut
-          cernantur. De ipsum ipsum dolor admodum se quamquam sempiternum aut excepteur id
-          aliqua ita quamquam ab aliqua sed expetendis e tamen laborum qui laborum enim
-          officia se enim graviterque ullamco quorum litteris aut singulis ex nulla,
-          veniam pariatur ut quid anim. Nescius summis senserit.
-          <div onClick={()=>{(active==='true')?setActive('false'):setActive('true')}} class={(active==='false')?styles.show:styles.hide}>
-            <Icon name='angle double right'/>
+        <Container className={styles.container}>
+          Want to make a personal website but you don't know web development or you don't have time to design an online portfolio for yourself?
+          <div onClick={()=>{(active==='true')?setActive('false'):setActive('true')}} className={(active==='false')?styles.show:styles.hide}>
+            <Icon name='angle double right' className={styles.icon}/>
           </div>
-          <div class={(active==='true')?styles.show:styles.hide}>
-            Ullamco cillum esse nescius velit o cillum se a quis incididunt, qui fore
-            senserit constias ad aliquip labore fabulas. Ingeniis nam ullamco hic laboris
-            consectetur ita doctrina ab ita sunt cillum tamen incididunt, singulis esse
-            litteris mentitum. Sint id a nulla appellat, voluptate est magna, fabulas
-            eruditionem se expetendis in export officia e nulla sunt a ita dolor probant
-            officia hic o id fugiat quae quae, ut possumus a probant, anim consequat
-            exercitation.Irure id in ipsum laboris. Singulis sunt aliquip. Hic multos
-            cupidatat graviterque ubi offendit aliqua ab singulis reprehenderit, occaecat
-            velit malis ab dolor, culpa senserit laborum. Aliquip labore senserit deserunt a
-            aliquip aute cillum an enim, id quibusdam voluptatibus ea dolor e mandaremus sed
-            sint, qui iis despicationes, appellat est deserunt, a occaecat sempiternum hic
-            sint iudicem sed exquisitaque.
+          <div className={(active==='true')?styles.show:styles.hide}>
+            <Icon name='angle down' onClick={()=>{(active==='true')?setActive('false'):setActive('true')}} className={styles.icon}/>
+            <br/>
+            We come with a platform where you don't need to know web development and spend hours for having an online portfolio.
+            <br/>
+            We will do that for you and that too for free of cost. You just need to register at our website and provide the details that you want to put in your portfolio.
+            <br/>
+            You can freely use the portfolio as your own website.
+            <br/>
+            Please give it a try, we will not let your expectations go down.
           </div>
         </Container>
         <Footer/>

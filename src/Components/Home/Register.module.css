@@ -4,7 +4,8 @@
   width: 100% !important;
   height: 100% !important;
   position: fixed;
-  overflow: scroll;
+  overflow: scroll !important;
+  scrollbar-width: none;
 }
 .form
 {
@@ -30,4 +31,13 @@
 .link
 {
   text-align: right !important;
+}
+.header
+{
+  color: #B8860B !important;
+  font-size: 40px !important;
+}
+.label
+{
+  color: #90EE90 !important;
 }

@@ -6,28 +6,25 @@ import styles from './Login.module.css';
 export const Login = () => {
   const [uname, setUname] = useState('');
   const [passwd, setPasswd] = useState('');
-  const googleLoginHandler=(event)=>{
-    window.location.href='/api/auth/google'
-  }
   return (
-    <div class={styles.body}>
+    <div className={styles.body}>
       <Container className={styles.Body}>
         <a href='/'>
           <Icon name='arrow left' className={styles.back}/>
         </a>
-        <div class={styles.link}>
+        <div className={styles.link}>
           <a href='/register'>New User? Register</a>
         </div>
-        <Header size='huge' textAlign='center' content='Login Form'/>
+        <Header size='huge' textAlign='center' content='Login Form' className={styles.header}/>
         <Divider/>
-        <div class={styles.form}>
+        <div className={styles.form}>
           <Form>
             <Form.Field required>
-              <label>Username or Email</label>
+              <label className={styles.label}>Username or Email</label>
               <input placeholder='Username' onChange={(e)=>{setUname(e.target.value)}} required/>
             </Form.Field>
             <Form.Field required>
-              <label>Password</label>
+              <label className={styles.label}>Password</label>
               <input placeholder='Password' type='password' onChange={(e)=>{setPasswd(e.target.value)}} required/>
             </Form.Field>
             <br/>
@@ -42,8 +39,8 @@ export const Login = () => {
             }} color='green'>Submit</Button>
           </Form>
         </div>
-        <div class={styles.google}>
-          <Button animated='vertical' color='red' onClick={googleLoginHandler}>
+        <div className={styles.google}>
+          <Button animated='vertical' color='red'>
             <Button.Content visible>Login with Google <Icon name='google'/></Button.Content>
             <Button.Content hidden><Icon name='arrow right'/></Button.Content>
           </Button>

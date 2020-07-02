@@ -5,7 +5,8 @@
   height: 100% !important;
   margin-bottom: 0px !important;
   position: fixed;
-  overflow: scroll;
+  overflow-y: scroll !important;
+  scrollbar-width: none;
 }
 .image
 {
@@ -21,4 +22,17 @@
 {
   margin-top: 100px !important;
   margin-bottom: 13vh !important;
+}
+.header
+{
+  color: #B8860B !important;
+  font-size: 40px !important;
+}
+.developer
+{
+  color: #90EE90 !important;
+}
+.d
+{
+  margin-right: 0px !important;
 }
