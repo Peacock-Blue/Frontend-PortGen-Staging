@@ -40,7 +40,7 @@ export const Login = () => {
           </Form>
         </div>
         <div className={styles.google}>
-          <Button animated='vertical' color='red'>
+          <Button animated='vertical' color='red' onClick={(e)=>{window.location.href="/api/auth/google"}}>
             <Button.Content visible>Login with Google <Icon name='google'/></Button.Content>
             <Button.Content hidden><Icon name='arrow right'/></Button.Content>
           </Button>

@@ -19,12 +19,12 @@ const TemplateBase=(props)=>{
                 {
                     (userdata && userdata.meta && userdata.meta.qualifications.map((value,index)=>
                         (<tr key={index.toString()}>
-                            <td>{value.name}</td>
-                            <td>{value.field}</td>
-                            <td>{value.startDate.toString()}</td>
-                            <td>{value.endDate.toString()}</td>
-                            <td>{value.grade}</td>
-                            <td>{value.institution}</td>
+                            <td>{value.name||""}</td>
+                            <td>{value.field||""}</td>
+                            <td>{(value.endDate?value.startDate.toString():"")}</td>
+                            <td>{(value.endDate?value.endDate.toString():"")}</td>
+                            <td>{value.grade||""}</td>
+                            <td>{value.institution||""}</td>
                         </tr>)))
                 }
                 </tbody>
@@ -39,10 +39,10 @@ const TemplateBase=(props)=>{
                 {
                     (userdata && userdata.meta && userdata.meta.works.map((value,index)=>
                         (<tr key={index.toString()}>
-                            <td>{value.description}</td>
-                            <td>{value.startDate.toString()}</td>
-                            <td>{value.endDate.toString()}</td>
-                            <td>{value.institution}</td>
+                            <td>{value.description||""}</td>
+                            <td>{(value.endDate?value.startDate.toString():"")}</td>
+                            <td>{(value.endDate?value.endDate.toString():"")}</td>
+                            <td>{value.institution||""}</td>
                         </tr>)))
                 }
                 </tbody>
@@ -55,7 +55,11 @@ const TemplateBase=(props)=>{
                 </thead>
                 <tbody>
                 {
-                    (userdata && userdata.meta && userdata.meta.achievements.map((value,index)=>(<tr key={index.toString()}><td>{value.description}</td><td>{value.date.toString()}</td></tr>)))
+                    (userdata && userdata.meta && userdata.meta.achievements.map((value,index)=>
+                        (<tr key={index.toString()}>
+                            <td>{value.description||""}</td>
+                            <td>{value.date?value.date.toString():""}</td>
+                        </tr>)))
                 }
                 </tbody>
             </table>
