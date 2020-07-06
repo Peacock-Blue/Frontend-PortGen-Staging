@@ -9,6 +9,7 @@ const TemplateBase=(props)=>{
         <>
         <h1>{(userdata&&userdata.meta&&userdata.meta.name?userdata.meta.name:"MyName")}</h1>
         <p>{(userdata&&userdata.meta&&userdata.meta.about?userdata.meta.about:"")}</p>
+        {userdata&& userdata.meta&&userdata.meta.qualifications&&
         <div>
             <h3>Qualifications</h3>
             <table>
@@ -29,7 +30,11 @@ const TemplateBase=(props)=>{
                 }
                 </tbody>
             </table>
+        </div>}
 
+        {userdata&& userdata.meta&&userdata.meta.works&&
+
+        <div>
             <h3>Work Experience</h3>
             <table>
                 <thead>
@@ -47,7 +52,11 @@ const TemplateBase=(props)=>{
                 }
                 </tbody>
             </table>
+        </div>}
 
+        {userdata&& userdata.meta&&userdata.meta.achievements&&
+
+        <div>
             <h3>Achievements</h3>
             <table>
                 <thead>
@@ -63,7 +72,7 @@ const TemplateBase=(props)=>{
                 }
                 </tbody>
             </table>
-        </div>
+        </div>}
         </>
     )
 }

@@ -1,11 +1,11 @@
-import React,{ useState, useEffect, Link } from "react"
+import React,{ useState, useEffect,useRef } from "react"
 import Axios from "axios"
 import moment from 'moment'
-import {Button,TextField } from "@material-ui/core"
+import {Button,TextField,TextareaAutosize,FormControl,InputLabel } from "@material-ui/core"
 
 
 export default function(){
-    const [userdata,setUserdata]=useState(null)
+    var userdata=useRef(null)
     const [uname,setUname]=useState(null)
     const [achievements,setAchievements]=useState([])
     const [qualifications,setQualifications]=useState([])
@@ -35,7 +35,7 @@ export default function(){
     useEffect(()=>{
         if(!uname) return
         Axios.get(`/api/fetchuserdata/${uname}`).then(data=>{
-            setUserdata(data.data||{})
+            userdata=data.data
             setAchievements(data.data.meta.achievements||[])
             setQualifications(data.data.meta.qualifications||[])
             setWorks(data.data.meta.works||[])
@@ -45,10 +45,9 @@ export default function(){
     },[uname])
     const submitUserdata=async()=>{
         //await setUserdata({...{meta:{...userdata.meta,...{achievements:achievements}}}})
-        var sendData=JSON.parse(JSON.stringify(userdata))
-        sendData.meta={...{name,about,achievements,works,qualifications},}
+        var sendMeta=Object.assign({},userdata.meta,{name,about,qualifications,works,achievements})
         var res=await Axios.post('/api/updateuserdata',{
-            meta:sendData.meta
+            meta:sendMeta
         })
         if(res.status===200){
         }else{
@@ -62,22 +61,26 @@ export default function(){
     }
     return(
         <>
-            <h3>
-            <label htmlFor='name'>Name</label>
-            <input 
+            <InputLabel htmlFor='name'>Name</InputLabel>
+
+            <TextField 
                 name="name"
                 value={name}
                 type='textarea'
+                InputProps={{
+                    style:{
+                        fontSize:'30px'
+                    }
+                }}
                 onChange={async (e)=>{
                     await setName(e.target.value)
                 }}
             />
-            </h3>
-            <label htmlFor='about'>About</label>
-            <input 
+            <InputLabel htmlFor='about'><h3>About</h3></InputLabel>
+            <TextField
                 name="about"
                 value={about}
-                type='textarea'
+                multiline
                 onChange={async (e)=>{
                     await setAbout(e.target.value)
                 }}
@@ -239,7 +242,7 @@ export default function(){
                                 <input 
                                     name={`work_startDate_${index.toString()}`} 
                                     type='date' 
-                                    value={moment(value.startDate).format('YYYY-MM-DD')} 
+                                    value={value.startDate} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedWorks=Object.assign([], works)
@@ -253,7 +256,7 @@ export default function(){
                                 <input 
                                     name={`work_endDate_${index.toString()}`} 
                                     type='date' 
-                                    value={moment(value.endDate).format('YYYY-MM-DD')} 
+                                    value={value.endDate} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedWorks=Object.assign([], works)
@@ -330,7 +333,7 @@ export default function(){
                                 <input 
                                     name={`date_${index.toString()}`} 
                                     type='date' 
-                                    value={moment(value.date).format('YYYY-MM-DD')} 
+                                    value={value.date} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedAchievements=Object.assign([], achievements)
