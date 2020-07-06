@@ -92,7 +92,7 @@ export default function(){
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...updatedQualifications,...{name:e.target.value}}
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{name:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
@@ -105,7 +105,7 @@ export default function(){
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...updatedQualifications,...{field:e.target.value}}
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{field:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
@@ -122,11 +122,10 @@ export default function(){
                                         setQualifications(updatedQualifications)
                                     }}
                                 />*/}
-                                <TextField
+                                <input
                                     id="date"
                                     label="Birthday"
                                     type="date"
-                                    defaultValue="2017-05-24"
                                     value={moment(value.startDate).format('YYYY-MM-DD').toString()}
                                     onChange={(e)=>{
                                         e.preventDefault()
@@ -158,8 +157,8 @@ export default function(){
                                     value={value.grade} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{grade:e.target.value}}
+                                        var updatedQualifications=Object.assign([], qualifications)
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{grade:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
@@ -171,8 +170,8 @@ export default function(){
                                     value={value.institution} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{institution:e.target.value}}
+                                        var updatedQualifications=Object.assign([], qualifications)
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{institution:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
@@ -211,8 +210,8 @@ export default function(){
                                     value={value.description} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedWorks=JSON.parse(JSON.stringify(works))
-                                        updatedWorks[index]={...{description:e.target.value}}
+                                        var updatedWorks=Object.assign([], works)
+                                        updatedWorks[index]=Object.assign(updatedWorks[index],{description:e.target.value})
                                         setWorks(updatedWorks)
                                     }}
                                 />
@@ -224,8 +223,8 @@ export default function(){
                                     value={moment(value.startDate).format('YYYY-MM-DD')} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedWorks=JSON.parse(JSON.stringify(works))
-                                        updatedWorks[index]={...{startDate:e.target.value}}
+                                        var updatedWorks=Object.assign([], works)
+                                        updatedWorks[index]=Object.assign(updatedWorks[index],{startDate:e.target.value})
                                         setWorks(updatedWorks)
                                     }}
                                 />
@@ -238,8 +237,8 @@ export default function(){
                                     value={moment(value.endDate).format('YYYY-MM-DD')} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedWorks=JSON.parse(JSON.stringify(works))
-                                        updatedWorks[index]={...{endDate:e.target.value}}
+                                        var updatedWorks=Object.assign([], works)
+                                        updatedWorks[index]=Object.assign(updatedWorks[index],{endDate:e.target.value})
                                         setWorks(updatedWorks)
                                     }}
                                 />
@@ -252,8 +251,8 @@ export default function(){
                                     value={value.institution} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedWorks=JSON.parse(JSON.stringify(works))
-                                        updatedWorks[index]={...{institution:e.target.value}}
+                                        var updatedWorks=Object.assign([], works)
+                                        updatedWorks[index]=Object.assign(updatedWorks[index],{institution:e.target.value})
                                         setWorks(updatedWorks)
                                     }}
                                 />
@@ -290,8 +289,8 @@ export default function(){
                                     value={value.description} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedAchievements=JSON.parse(JSON.stringify(achievements))
-                                        updatedAchievements[index]={...{description:e.target.value}}
+                                        var updatedAchievements=Object.assign([], achievements)
+                                        updatedAchievements[index]=Object.assign(updatedAchievements[index],{description:e.target.value})
                                         setAchievements(updatedAchievements)
                                     }}
                                 />
@@ -303,8 +302,8 @@ export default function(){
                                     value={moment(value.date).format('YYYY-MM-DD')} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedAchievements=JSON.parse(JSON.stringify(achievements))
-                                        updatedAchievements[index]={...{date:e.target.value}}
+                                        var updatedAchievements=Object.assign([], achievements)
+                                        updatedAchievements[index]=Object.assign(updatedAchievements[index],{date:e.target.value})
                                         setAchievements(updatedAchievements)
                                     }}
                                 />
