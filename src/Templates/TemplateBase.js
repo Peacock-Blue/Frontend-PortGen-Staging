@@ -21,7 +21,7 @@ const TemplateBase=(props)=>{
                         (<tr key={index.toString()}>
                             <td>{value.name||""}</td>
                             <td>{value.field||""}</td>
-                            <td>{(value.endDate?value.startDate.toString():"")}</td>
+                            <td>{(value.startDate?value.startDate.toString():"")}</td>
                             <td>{(value.endDate?value.endDate.toString():"")}</td>
                             <td>{value.grade||""}</td>
                             <td>{value.institution||""}</td>
@@ -40,7 +40,7 @@ const TemplateBase=(props)=>{
                     (userdata && userdata.meta && userdata.meta.works.map((value,index)=>
                         (<tr key={index.toString()}>
                             <td>{value.description||""}</td>
-                            <td>{(value.endDate?value.startDate.toString():"")}</td>
+                            <td>{(value.startDate?value.startDate.toString():"")}</td>
                             <td>{(value.endDate?value.endDate.toString():"")}</td>
                             <td>{value.institution||""}</td>
                         </tr>)))
