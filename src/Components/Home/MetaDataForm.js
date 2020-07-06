@@ -1,38 +1,48 @@
-import React,{ useState, useEffect } from "react"
+import React,{ useState, useEffect, Link } from "react"
 import Axios from "axios"
 import moment from 'moment'
-import { TextField } from "@material-ui/core"
+import {Button,TextField } from "@material-ui/core"
 
 
 export default function(){
     const [userdata,setUserdata]=useState(null)
+    const [uname,setUname]=useState(null)
     const [achievements,setAchievements]=useState([])
     const [qualifications,setQualifications]=useState([])
     const [works,setWorks]=useState([])
     const [name,setName]=useState('')
     const [about,setAbout] = useState('')
     useEffect(()=>{       
-        const updateUserdata= async()=>{
-            var res=await Axios.get('/api/auth/current_user')
+        Axios.get('/api/auth/current_user').then(res=>{
             if(!res || !res.data || !res.data.uname){
                 alert("Something is wrong... Please sign in again")
                 window.location.replace('/login')
                 return
             }
             else{
-                var uname=res.data.uname
-                var data=await Axios.get(`/api/fetchuserdata/${uname}`)
-                await setUserdata(data.data)
+                setUname(res.data.uname)
+                    
+                /*await setUserdata(data.data||{})
                 await setAchievements(data.data.meta.achievements||[])
                 await setQualifications(data.data.meta.qualifications||[])
                 await setWorks(data.data.meta.works||[])
                 await setName(data.data.meta.name||"")
-                await setAbout(data.data.meta.about||"")
+                await setAbout(data.data.meta.about||"")*/
             }
-        }
-        
-        updateUserdata()
+        })   
     },[])
+
+    useEffect(()=>{
+        if(!uname) return
+        Axios.get(`/api/fetchuserdata/${uname}`).then(data=>{
+            setUserdata(data.data||{})
+            setAchievements(data.data.meta.achievements||[])
+            setQualifications(data.data.meta.qualifications||[])
+            setWorks(data.data.meta.works||[])
+            setName(data.data.meta.name||"")
+            setAbout(data.data.meta.about||"")                                        
+        })
+    },[uname])
     const submitUserdata=async()=>{
         //await setUserdata({...{meta:{...userdata.meta,...{achievements:achievements}}}})
         var sendData=JSON.parse(JSON.stringify(userdata))
@@ -41,11 +51,12 @@ export default function(){
             meta:sendData.meta
         })
         if(res.status===200){
-            window.location.href=`/portfolio/${userdata.uname}`
         }else{
             alert("something went wrong")
         }
     }
+
+
     if(!userdata){
         return(<h3>Loading...</h3>)
     }
@@ -78,33 +89,32 @@ export default function(){
             <h3>Qualifications</h3>
             <table>
                 <thead>
-                    <tr><th>Name</th><th>Field</th><th>Start Date</th><th>End Date</th><th>Grade</th><th>Institution</th></tr>
+                    <tr><th>Name</th><th>Field</th><th>Start Date</th><th>End Date</th><th>Grade</th><th>Institution</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                 {
                     (qualifications && qualifications.map((value,index)=>
                         (<tr key={index.toString()}>
                             <td>
-                                <input 
+                                <TextField
                                     name={`qualification_name_${index}`} 
-                                    type='textarea'
                                     value={value.name} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
+                                        var updatedQualifications=Object.assign([], qualifications)
                                         updatedQualifications[index]=Object.assign(updatedQualifications[index],{name:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
                             </td>
                             <td>
-                                <input 
+                                <TextField 
                                     name={`qualification_field_${index}`} 
                                     type='textarea'
                                     value={value.field} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
+                                        var updatedQualifications=Object.assign([], qualifications)
                                         updatedQualifications[index]=Object.assign(updatedQualifications[index],{field:e.target.value})
                                         setQualifications(updatedQualifications)
                                     }}
@@ -123,19 +133,15 @@ export default function(){
                                     }}
                                 />*/}
                                 <input
-                                    id="date"
-                                    label="Birthday"
                                     type="date"
-                                    value={moment(value.startDate).format('YYYY-MM-DD').toString()}
+                                    value={value.startDate}
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
+                                        var updatedQualifications=Object.assign([], qualifications)
                                         updatedQualifications[index]=Object.assign(updatedQualifications[index],{startDate:moment(e.target.value).toDate()})
                                         setQualifications(updatedQualifications)
                                     }}
-                                    InputLabelProps={{
-                                    shrink: true,
-                                    }}/>
+                                    />
                             </td>
                             <td>
                                 <input 
@@ -151,7 +157,7 @@ export default function(){
                                 />
                             </td>
                             <td>
-                                <input 
+                                <TextField
                                     name={`qualification_grade_${index}`} 
                                     type='textarea'
                                     value={value.grade} 
@@ -164,7 +170,7 @@ export default function(){
                                 />
                             </td>
                             <td>
-                                <input 
+                                <TextField
                                     name={`qualification_institution_${index}`} 
                                     type='textarea'
                                     value={value.institution} 
@@ -176,18 +182,31 @@ export default function(){
                                     }}
                                 />
                             </td>
+                            <td>
+                                <Button onClick={(e)=>{
+                                    var updatedQualifications=qualifications.slice(0,index).concat([{name:"",field:"",endDate:Date.now(),startDate:Date.now(),grade:"",institution:""}]).concat(qualifications.slice(index))
+                                    setQualifications(updatedQualifications)
+                                }}>+</Button>
+                                <Button onClick={(e)=>{
+                                    var updatedQualifications=qualifications.slice(0,index).concat(qualifications.slice(index+1))
+                                    setQualifications(updatedQualifications)
+                                }}>-</Button>
+                            </td>
                         </tr>)
                     ))
                 }
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td>
+                        <Button onClick={(e)=>{
+                            var updatedQualifications=qualifications.concat([{name:"",field:"",endDate:Date.now(),startDate:Date.now(),grade:"",institution:""}])
+                            setQualifications(updatedQualifications)
+                        }}>+</Button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <button 
-                onClick={(e)=>{
-                    e.preventDefault()
-                    setQualifications(qualifications.concat([{date:new Date(10,10,10),description:"New Qualification"}]))
-                }}>
-                Add Qualification
-            </button>
+            
         </div>
         {/*Qualifications*/}
         
@@ -197,14 +216,14 @@ export default function(){
             <h3>Work Experience</h3>
             <table>
                 <thead>
-                    <tr><th>Description</th><th>Start Date</th><th>End Date</th><th>Institution</th></tr>
+                    <tr><th>Description</th><th>Start Date</th><th>End Date</th><th>Institution</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                 {
                     (works && works.map((value,index)=>
                         (<tr key={index.toString()}>
                             <td>
-                                <input 
+                                <TextField 
                                     name={`work_description_${index}`} 
                                     type='textarea'
                                     value={value.description} 
@@ -245,7 +264,7 @@ export default function(){
                             </td>
 
                             <td>
-                                <input 
+                                <TextField
                                     name={`work_institution_${index}`} 
                                     type='textarea'
                                     value={value.institution} 
@@ -257,18 +276,30 @@ export default function(){
                                     }}
                                 />
                             </td>
+                            <td>
+                                <Button onClick={(e)=>{
+                                    var updatedWorks=works.slice(0,index).concat([{description:"",endDate:Date.now(),startDate:Date.now(),institution:""}]).concat(works.slice(index))
+                                    setWorks(updatedWorks)
+                                }}>+</Button>
+                                <Button onClick={(e)=>{
+                                    var updatedWorks=works.slice(0,index).concat(works.slice(index+1))
+                                    setWorks(updatedWorks)
+                                }}>-</Button>
+                            </td>
                         </tr>)
                     ))
                 }
+                <tr>
+                    <td></td><td></td><td></td><td></td>
+                    <td>
+                        <Button onClick={(e)=>{
+                            var updatedWorks=works.concat([{description:"",endDate:Date.now(),startDate:Date.now(),institution:""}])
+                            setWorks(updatedWorks)
+                        }}>+</Button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <button 
-                onClick={(e)=>{
-                    e.preventDefault()
-                    setWorks(works.concat([{startDate:new Date(10,10,10),endDate:new Date(10,10,10),description:"New Work"}]))
-                }}>
-                Add Work
-            </button>
         </div>
         
         {/*Achievements*/}
@@ -276,14 +307,14 @@ export default function(){
             <h3>achievements</h3>
             <table>
                 <thead>
-                    <tr><th>Description</th><th>Date</th></tr>
+                    <tr><th>Description</th><th>Date</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                 {
                     (achievements && achievements.map((value,index)=>
                         (<tr key={index.toString()}>
                             <td>
-                                <input 
+                                <TextField
                                     name={`description_${index}`} 
                                     type='textarea'
                                     value={value.description} 
@@ -308,28 +339,39 @@ export default function(){
                                     }}
                                 />
                             </td>
+                            <td>
+                                <Button onClick={(e)=>{
+                                    var updatedAchievements=achievements.slice(0,index).concat([{description:"",endDate:Date.now(),startDate:Date.now(),institution:""}]).concat(achievements.slice(index))
+                                    setAchievements(updatedAchievements)
+                                }}>+</Button>
+                                <Button onClick={(e)=>{
+                                    var updatedAchievements=achievements.slice(0,index).concat(achievements.slice(index+1))
+                                    setAchievements(updatedAchievements)
+                                }}>-</Button>
+                            </td>
                         </tr>)
                     ))
                 }
+                <tr>
+                    <td></td><td></td>
+                    <td>
+                        <Button onClick={(e)=>{
+                            var updatedAchievements=achievements.concat([{description:"",date:Date.now()}])
+                            setAchievements(updatedAchievements)
+                        }}>+</Button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <button 
-                onClick={(e)=>{
-                    e.preventDefault()
-                    setAchievements(achievements.concat([{date:new Date(10,10,10),description:"New Achievement"}]))
-                }}>
-                Add Achievement
-            </button>
         </div>
         {/*Achievements*/}
 
-        <button 
+        <Button 
             onClick={(e)=>{
                 submitUserdata()
-
             }}>
             Submit
-        </button>
+        </Button>
         </>
     )
 }
