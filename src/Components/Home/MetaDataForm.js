@@ -1,6 +1,8 @@
 import React,{ useState, useEffect } from "react"
 import Axios from "axios"
 import moment from 'moment'
+import { TextField } from "@material-ui/core"
+
 
 export default function(){
     const [userdata,setUserdata]=useState(null)
@@ -90,7 +92,7 @@ export default function(){
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{name:e.target.value}}
+                                        updatedQualifications[index]={...updatedQualifications,...{name:e.target.value}}
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
@@ -103,33 +105,48 @@ export default function(){
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{field:e.target.value}}
+                                        updatedQualifications[index]={...updatedQualifications,...{field:e.target.value}}
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
                             </td>
                             <td>
-                                <input 
+                                {/*<input 
                                     name={`qualification_startDate_${index.toString()}`} 
                                     type='date'
-                                    value={moment(value.startDate).format('YYYY-MM-DD')} 
+                                    value={new Date(value.startDate)} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{startDate:e.target.value}}
+                                        updatedQualifications[index]={...updatedQualifications,...{startDate:new Date(e.target.value)}}
                                         setQualifications(updatedQualifications)
                                     }}
-                                />
+                                />*/}
+                                <TextField
+                                    id="date"
+                                    label="Birthday"
+                                    type="date"
+                                    defaultValue="2017-05-24"
+                                    value={moment(value.startDate).format('YYYY-MM-DD').toString()}
+                                    onChange={(e)=>{
+                                        e.preventDefault()
+                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{startDate:moment(e.target.value).toDate()})
+                                        setQualifications(updatedQualifications)
+                                    }}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}/>
                             </td>
                             <td>
                                 <input 
                                     name={`qualification_endDate_${index.toString()}`} 
                                     type='date' 
-                                    value={moment(value.endDate).format('YYYY-MM-DD')} 
+                                    value={moment(value.endDate).format('YYYY-MM-DD').toString()} 
                                     onChange={(e)=>{
                                         e.preventDefault()
-                                        var updatedQualifications=JSON.parse(JSON.stringify(qualifications))
-                                        updatedQualifications[index]={...{endDate:e.target.value}}
+                                        var updatedQualifications=Object.assign([], qualifications)
+                                        updatedQualifications[index]=Object.assign(updatedQualifications[index],{endDate:moment(e.target.value).toDate()})
                                         setQualifications(updatedQualifications)
                                     }}
                                 />
