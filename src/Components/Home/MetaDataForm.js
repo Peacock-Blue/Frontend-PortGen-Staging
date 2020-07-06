@@ -136,8 +136,9 @@ export default function(){
                                     }}
                                 />*/}
                                 <input
+                                    name={`qualification_startDate_${index.toString()}`} 
                                     type="date"
-                                    value={value.startDate}
+                                    value={moment(value.startDate).format('YYYY-MM-DD').toString()}
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedQualifications=Object.assign([], qualifications)
@@ -242,7 +243,7 @@ export default function(){
                                 <input 
                                     name={`work_startDate_${index.toString()}`} 
                                     type='date' 
-                                    value={value.startDate} 
+                                    value={moment(value.startDate).format('YYYY-MM-DD').toString()} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedWorks=Object.assign([], works)
@@ -256,7 +257,7 @@ export default function(){
                                 <input 
                                     name={`work_endDate_${index.toString()}`} 
                                     type='date' 
-                                    value={value.endDate} 
+                                    value={moment(value.endDate).format('YYYY-MM-DD').toString()} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedWorks=Object.assign([], works)
@@ -333,7 +334,7 @@ export default function(){
                                 <input 
                                     name={`date_${index.toString()}`} 
                                     type='date' 
-                                    value={value.date} 
+                                    value={moment(value.date).format('YYYY-MM-DD').toString()} 
                                     onChange={(e)=>{
                                         e.preventDefault()
                                         var updatedAchievements=Object.assign([], achievements)
