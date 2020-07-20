@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Bokachoda from './Template1/App.js';
 
 const TemplateBase=(props)=>{
     var {userdata}=props

@@ -1,0 +1,13 @@
+.Body
+{
+  background-color: #F0F8FF;
+  height: 100vh;
+  position: fixed !important;
+  width: 100% !important;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.container
+{
+  padding-top: 150px !important;
+}
