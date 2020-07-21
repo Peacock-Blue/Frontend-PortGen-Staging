@@ -6,7 +6,7 @@ import styles from './Works.module.css';
 export const Works = ({userdata}) => {
   return (
     <>
-      <Drawer/>
+      <Drawer userdata={userdata}/>
         <div className={styles.Body}>
           <Container className={styles.container}>
               {

@@ -5,10 +5,9 @@ import {Footer} from './Footer';
 export const Main = ({userdata}) => {
   return (
     <>
-      <Drawer/>
+      <Drawer userdata={userdata}/>
       <Body userdata={userdata}/>
       <Footer email={{'mail': userdata.email}}/>
     </>
   );
 }
-

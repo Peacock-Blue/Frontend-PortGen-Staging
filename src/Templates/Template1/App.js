@@ -6,8 +6,8 @@ import {Qualification} from './Qualification';
 import {Achievements} from './Achievements';
 import 'semantic-ui-css/semantic.min.css';
 
-class App extends Component{
-  userdata = {
+export const App = ({userdata}) => {
+  /*userdata = {
     'email': 'kanrar.pratim@gmail.com',
     'metas': {
       'name': 'Pratim Kanrar',
@@ -32,27 +32,26 @@ class App extends Component{
       }],
       'photoURI': 'pratim.jpg'
     }
-  };
-  render(){
+  };*/
+  let link = '/portfolio/'+userdata.uname;
+  userdata.metas = userdata.meta;
+  userdata.email = userdata.emails[0];
     return (
         <Router>
           <Switch>
-            <Route path="/" exact>
-              <Main userdata={this.userdata}/>
+            <Route path={link+'/education'} exact>
+              <Qualification userdata={userdata}/>
             </Route>
-            <Route path="/education">
-              <Qualification userdata={this.userdata}/>
+            <Route path={link+'/works'} exact>
+              <Works userdata={userdata}/>
             </Route>
-            <Route path="/work">
-              <Works userdata={this.userdata}/>
+            <Route path={link+'/achievement'} exact>
+              <Achievements userdata={userdata}/>
             </Route>
-            <Route path="/achievement">
-              <Achievements userdata={this.userdata}/>
+            <Route path={link} exact>
+              <Main userdata={userdata}/>
             </Route>
           </Switch>
         </Router>
     );
-  }
 }
-
-export default App;

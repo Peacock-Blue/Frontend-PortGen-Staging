@@ -6,7 +6,7 @@ import styles from './Achievements.module.css';
 export const Achievements = ({userdata}) => {
   return (
     <>
-      <Drawer/>
+      <Drawer userdata={userdata}/>
         <div className={styles.Body}>
           <Container className={styles.container}>
             {

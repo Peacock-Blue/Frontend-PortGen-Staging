@@ -8,6 +8,7 @@ const TemplateBase=(props)=>{
     }
     return(
         <>
+        <h1>{(userdata&&userdata.meta&&userdata.meta.template?userdata.meta.template:"template")}</h1>
         <h1>{(userdata&&userdata.meta&&userdata.meta.name?userdata.meta.name:"MyName")}</h1>
         <p>{(userdata&&userdata.meta&&userdata.meta.about?userdata.meta.about:"")}</p>
         {userdata&& userdata.meta&&userdata.meta.qualifications&&

@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {Sidebar, Menu, Icon, Divider} from 'semantic-ui-react';
 import styles from './Drawer.module.css';
 
-export const Drawer = () => {
+export const Drawer = ({userdata}) => {
   const [visible, setVisible] = useState(0);
+  let link = '/portfolio/'+userdata.uname;
   return (
     <>
       <div className={(visible===1)?styles.show:styles.hide}>
@@ -20,22 +21,22 @@ export const Drawer = () => {
             <Menu.Item onClick={()=>{setVisible(0)}}>
               <Icon name='close'/>
             </Menu.Item>
-            <Menu.Item as='a' href='/'>
+            <Menu.Item as='a' href={link}>
               <Icon name='home' />
               Home
             </Menu.Item>
-            <Menu.Item as='a' href='/work'>
+            {userdata.metas.works?(<Menu.Item as='a' href={link+'/works'}>
               <Icon name='github' />
               Projects
-            </Menu.Item>
-            <Menu.Item as='a' href='/education'>
+            </Menu.Item>):<div/>}
+            {userdata.metas.qualifications?(<Menu.Item as='a' href={link+'/education'}>
               <Icon name='graduation cap' />
               Qualifications
-            </Menu.Item>
-            <Menu.Item as='a' href='/achievement'>
+            </Menu.Item>):<div/>}
+            {userdata.metas.achievements?(<Menu.Item as='a' href={link+'/achievement'}>
               <Icon name='winner' />
               Achievements
-            </Menu.Item>
+            </Menu.Item>):<div/>}
           </Sidebar>
         </Sidebar.Pushable>
       </div>
