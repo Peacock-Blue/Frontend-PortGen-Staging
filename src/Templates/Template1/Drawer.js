@@ -25,15 +25,15 @@ export const Drawer = ({userdata}) => {
               <Icon name='home' />
               Home
             </Menu.Item>
-            {userdata.metas.works?(<Menu.Item as='a' href={link+'/works'}>
+            {((userdata.metas.works.length!==0))?(<Menu.Item as='a' href={link+'/works'}>
               <Icon name='github' />
               Projects
             </Menu.Item>):<div/>}
-            {userdata.metas.qualifications?(<Menu.Item as='a' href={link+'/education'}>
+            {(userdata.metas.qualifications.length!==0)?(<Menu.Item as='a' href={link+'/education'}>
               <Icon name='graduation cap' />
               Qualifications
             </Menu.Item>):<div/>}
-            {userdata.metas.achievements?(<Menu.Item as='a' href={link+'/achievement'}>
+            {(userdata.metas.achievements.length!==0)?(<Menu.Item as='a' href={link+'/achievement'}>
               <Icon name='winner' />
               Achievements
             </Menu.Item>):<div/>}
